@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AC Turnip Price Simulator</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div id="intro">
+	<p>
+	  This randomizes possible sets of prices and filters through user input.  Note that if the input is too detailed, the simulation might not be able to come out with any result.
+  </p>
+  <p>
+	  Majority of code is copied and ported from <a href="https://twitter.com/_Ninji/status/1244818665851289602?s=20">Ninji's work extracting the code</a>, and also inspired by <a href="https://mikebryant.github.io/ac-nh-turnip-prices/index.html">Mike Bryant's work</a>.
+  </p>
+	<p>This work is not affiliated with Nook Inc.</p>
+	</div>
+	<form id="form">
+		<p>
+		<span data-i18n="lastweek_pattern_label">Last Week Pattern: </span><br/>
+			<input type="radio" id="lastweek_pattern_unknown" name="lastweek_pattern" value="-1" checked>
+			<label for="lastweek_pattern_unknown" data-i18n="pattern_unknown_label">Unknown (will use long-term probability)</label><br/>
+			<input type="radio" id="lastweek_pattern_0" name="lastweek_pattern" value="0">
+			<label for="lastweek_pattern_0" data-i18n="pattern_0_label">Wavy</label><br/>
+			<input type="radio" id="lastweek_pattern_1" name="lastweek_pattern" value="1">
+			<label for="lastweek_pattern_1" data-i18n="pattern_1_label">2x-6x spike</label><br/>
+			<input type="radio" id="lastweek_pattern_2" name="lastweek_pattern" value="2">
+			<label for="lastweek_pattern_2" data-i18n="pattern_2_label">Falling</label><br/>
+			<input type="radio" id="lastweek_pattern_3" name="lastweek_pattern" value="3">
+			<label for="lastweek_pattern_3" data-i18n="pattern_3_label">1.4x-2x spike</label><br/>
+			<input type="radio" id="lastweek_pattern_fixed" name="lastweek_pattern" value="-2">
+			<label for="lastweek_pattern_fixed" data-i18n="pattern_fixed_label">First time buying turnip at home island</label>
+		</p>
+
+		<div style="display: none;">
+		<label for="oneline" data-i18n="onelineinput_label">One-line input:</label>
+		<input type="text" id="oneline" name="oneline" placeholder="103 91/87 82/77 74/69 66/61 57/53 50/47">
+		<p data-i18n="oneline_input_help">Leave empty if skipped or unknown, use a / for one day skip</p>
+		</div>
+
+		<div>
+    <p>
+      <label>
+				<label for="buy" data-i18n="buy_label">Buy price</label>
+        <input type="number" id="buy">
+      </label>
+    </p>
+    <p>
+      <label for="sell_2" data-i18n="monday_am_label">Monday AM</label>
+      <input type="number" id="sell_2">
+      <label for="sell_3" data-i18n="monday_pm_label">Monday PM</label>
+      <input type="number" id="sell_3">
+    </p>
+    <p>
+      <label for="sell_4" data-i18n="tuesday_am_label">Tuesday AM</label>
+      <input type="number" id="sell_4">
+      <label for="sell_5" data-i18n="tuesday_pm_label">Tuesday PM</label>
+      <input type="number" id="sell_5">
+    </p>
+    <p>
+      <label for="sell_6" data-i18n="wednesday_am_label">Wednesday AM</label>
+      <input type="number" id="sell_6">
+      <label for="sell_7" data-i18n="wednesday_pm_label">Wednesday PM</label>
+      <input type="number" id="sell_7">
+    </p>
+    <p>
+      <label for="sell_8" data-i18n="thursday_am_label">Thursday AM</label>
+      <input type="number" id="sell_8">
+      <label for="sell_9" data-i18n="thursday_pm_label">Thursday PM</label>
+      <input type="number" id="sell_9">
+    </p>
+    <p>
+      <label for="sell_10" data-i18n="friday_am_label">Friday AM</label>
+      <input type="number" id="sell_10">
+      <label for="sell_11" data-i18n="friday_pm_label">Friday PM</label>
+      <input type="number" id="sell_11">
+    </p>
+    <p>
+      <label for="sell_12" data-i18n="saturday_am_label">Saturday AM</label>
+      <input type="number" id="sell_12">
+      <label for="sell_13" data-i18n="saturday_pm_label">Saturday PM</label>
+      <input type="number" id="sell_13">
+    </p>
+		</div>
+
+		<p>
+			<label for="oneline" data-i18n="onelineinput_label">Simulations:</label>
+			<input type="number" id="simulations" value="10000">
+		</p>
+
+    <button type="submit" id="run">Run</button>
+    <button type="reset" id="reset">Reset</button>
+	</form>
+	<div id="result">
+		<h2>Result</h2>
+		<h3>Pattern probability</h3>
+		<table class="table-border">
+			<thead>
+				<tr>
+					<th>Wavy</th>
+					<th>2x-6x spike</th>
+					<th>Falling</th>
+					<th>1.4x-2x spike</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr id="result_samples">
+				</tr>
+				<tr id="result_prob">
+				</tr>
+			</tbody>
+		</table>
+		<h3>Price probability</h3>
+		<table class="table-border">
+			<thead>
+				<tr id="result_price_labels">
+				</tr>
+			</thead>
+			<tbody>
+				<tr id="result_price">
+				</tr>
+				<tr id="result_price_prob">
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script src="script.js"></script>
+</body>
+</html>
