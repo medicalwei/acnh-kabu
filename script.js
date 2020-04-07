@@ -293,6 +293,8 @@ function onSubmit(event) {
     oneliner += i % 2 === 0 ? "/" : " ";
   }
 
+  document.getElementById('oneline').value = oneliner;
+
   let lwp = "-1";
   document.getElementsByName('lastweek_pattern').forEach(elem => {
     if (elem.checked) {
@@ -300,7 +302,11 @@ function onSubmit(event) {
     }
   })
 
-  document.getElementById('oneline').value = oneliner;
+  if (lwp === "-2") {
+    // the base price is re-randomized in first purchase.
+    prices[0] = 0;
+    prices[1] = 0;
+  }
 
   const result = run(lwp, prices, sims);
 
