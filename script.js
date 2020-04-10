@@ -1,9 +1,8 @@
 class SeadRNG {
   // Unvalidated JavaScript port of Nintendo's Sead RNG
 
-  ctx = new Uint32Array(4);
-
   constructor() {
+    this.ctx = new Uint32Array(4);
 
     switch (arguments.length) {
     case 1:
